@@ -18,12 +18,14 @@ def get_large_files():
     path = input("Enter Path of Directory to Search or press ENTER for Root\n")
     if path == "":
         path = "/"
-    if path[len(path) - 1 != "/"]:
+    elif path[len(path) - 1 != "/"]:
         path += "/*"
 
     else:
         path += "*"
-    out = run_command(f"du -h {path} | sort -rh | head -n 10")
+    out = run_command(
+        f"sudo find {path} -type f -print0 | xargs -0 du -sh | sort -rh | head -n 10"
+    )
     print(out)
 
 
