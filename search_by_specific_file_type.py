@@ -22,12 +22,13 @@ def main():
     else:
         command = f"find {directory_to_scan} -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
 
-    run_command(command=command)
-
-    print(
-        "Enter 'X' to delete all above files, or \nEnter 'Y' to not delete any, or \nYEnter the path of the file to delete a single file"
-    )
-    s = input()
+    a = run_command(command=command)
+    s=""
+    if a:
+        print(
+            "Enter 'X' to delete all above files, or \nEnter 'Y' to not delete any, or \nEnter the path of the file to delete a single file"
+        )
+        s = input()
     if s == "X":
         command += " | rm -rf"
         run_command(command=command)
