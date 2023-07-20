@@ -53,7 +53,7 @@ def get_disk_usage():
 def get_disk_partition():
     partitions = psutil.disk_partitions(all=False)
     table = PrettyTable()
-    table.field_names = ["Name", "Total Size", "Used", "Free"]
+    table.field_names = ["Name", "Total Size(GiB)", "Used(GiB)", "Free(GiB)"]
 
     for disk in partitions:
         if disk.fstype:
@@ -62,7 +62,7 @@ def get_disk_partition():
             total = disk.total
             used = disk.used
             free = disk.free
-            table.add_row([nam, total, used, free], divider=True)
+            table.add_row([nam, total * 1e-9, used * 1e-9, free * 1e-9], divider=True)
 
     print(table)
 
