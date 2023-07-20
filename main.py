@@ -6,24 +6,26 @@ from prettytable import PrettyTable
 
 
 def run_command(command):
+    print("Starting Check\n")
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    print("Done\n")
     return result.stdout.strip()
 
 
+def get_large_files():
+    path = input("Enter Path of Directory to Search or press ENTER for Root\n")
+    if path == "":
+        path = "/"
+    if path[len(path) - 1 != "/"]:
+        path += "/*"
+
+    else:
+        path += "*"
+    out = run_command(f"du -h {path} | sort -rh | head -n 10")
+    print(out)
+
+
 def get_disk_usage():
-    usage = psutil.disk_usage("./")
-
-    # # print(os.getcwd())
-    # total_space = usage.total
-    # used_space = usage.used
-    # free_space = usage.free
-    # perc = usage.percent
-    # total_gb = round(total_space*1e-9, 3)
-    # used_gb = round(used_space*1e-9, 3)
-    # free_gb = round(free_space*1e-9, 3)
-    # print(
-    #     f"\n\nTotal Space = {total_gb} GB \nUsed Space = {used_gb} GB \nFree Space = {free_gb} GB\nPercentage Used = {perc}%")
-
     total, used, free = shutil.disk_usage("/")
 
     print(f"Total:  {(total // (2**30))}")
@@ -43,7 +45,6 @@ def get_disk_partition():
 
     for disk in partitions:
         if disk.fstype:
-            # print(disk.device, psutil.disk_usage(disk.mountpoint))
             nam = disk.device
             disk = psutil.disk_usage(disk.mountpoint)
             total = disk.total
@@ -57,7 +58,7 @@ def get_disk_partition():
 def main():
     while 1:
         print(
-            "What do you desire ..? \n1) Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Exit"
+            "What do you desire ..? \n1) Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Check for Large Files\n6) Exit"
         )
         xin = input("\nINPUT->")
         x = 0
@@ -77,8 +78,10 @@ def main():
         elif x == 4:
             get_disk_partition()
             input("\n\nPRESS 'ENTER' to go HOME\n\n")
-
-        elif x == 45:
+        elif x == 5:
+            get_large_files()
+            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+        elif x == 6:
             break
         else:
             print(
