@@ -4,7 +4,6 @@ import os
 
 
 def delete_files_in_directory(directory):
-    """Delete all files in the specified directory using find and xargs."""
     try:
         start_time = time.time()
         command = f"find {directory} -type f -print0 | xargs -0 rm -f"

@@ -1,18 +1,9 @@
 import os
 import hashlib
+from tqdm import tqdm
 
 
 def get_file_hash(filename, block_size=65536):
-    """
-    Calculate the SHA-256 hash of a file.
-
-    Parameters:
-        filename (str): The path to the file.
-        block_size (int): The size of blocks to read from the file for hashing.
-
-    Returns:
-        str: The hexadecimal representation of the file's SHA-256 hash.
-    """
     hasher = hashlib.sha256()
     with open(filename, "rb") as file:
         while True:
@@ -24,15 +15,6 @@ def get_file_hash(filename, block_size=65536):
 
 
 def find_duplicate_files(directory):
-    """
-    Find duplicate files in a given directory and its subdirectories.
-
-    Parameters:
-        directory (str): The path to the directory to search.
-
-    Returns:
-        list: A list of paths to the duplicate files found.
-    """
     file_hash_dict = {}
     duplicate_files = []
 
@@ -49,39 +31,29 @@ def find_duplicate_files(directory):
 
 
 def delete_files(file_list):
-    """
-    Delete the given list of files.
-
-    Parameters:
-        file_list (list): A list of file paths to delete.
-
-    Note:
-        This function will attempt to delete the files and print a message
-        for each file indicating whether it was deleted successfully or not.
-    """
-    for file_path in file_list:
+    for file_path in tqdm(file_list):
         try:
             os.remove(file_path)
             print(f"Deleted: {file_path}")
         except Exception as e:
             print(f"Failed to delete {file_path}: {e}")
-
-    # Directory to start the search from (e.g., user home directory)
+    print("\nDeletion Complete \n ")
 
 
 def main():
-    print("Use these paths as Reference ")
-    print("/home/Bob/Desktop/example.txt")
+    # print("Use these paths as Reference ")
+    # print("/home/Bob/Desktop/example.txt")
 
     while True:
-        dup_files = input("Enter the directory path to scan for duplicates: ").strip()
+        dup_files = input("Enter the directory path to scan for duplicate files: ")
         dup_files = os.path.normpath(dup_files)
+        print(dup_files, "ASDF")
         if os.path.exists(dup_files) and os.path.isdir(dup_files):
             break
         print(f"Invalid directory: {dup_files}")
         print("Please make sure the directory path exists and is a valid directory.")
 
-    directory_to_scan = dup_files  # Replace this with the actual directory path
+    directory_to_scan = dup_files
 
     duplicate_files = find_duplicate_files(directory_to_scan)
 
@@ -90,11 +62,17 @@ def main():
     else:
         print("Duplicate files found:")
         for duplicate_file in duplicate_files:
-            print(duplicate_file)
+            print(duplicate_file, "\n")
+        while 1:
+            confirm_deletion = (
+                input("Do you want to delete these files? (Yes/No): ").strip().lower()
+            )
+            if confirm_deletion == "yes":
+                delete_files(duplicate_files)
+                break
+            elif confirm_deletion == "no":
+                break
+            else:
+                print("Sorry, I did not get it? Lets try again!")
 
-        confirm_deletion = (
-            input("Do you want to delete these files? (yes/no): ").strip().lower()
-        )
-        if confirm_deletion == "yes":
-            delete_files(duplicate_files)
     return

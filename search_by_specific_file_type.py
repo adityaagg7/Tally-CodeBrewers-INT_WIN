@@ -1,11 +1,6 @@
 import subprocess
 import os
-
-
-def run_command(command):
-    result = subprocess.run(command, shell=True, capture_output=True, text=True)
-    print(result.stdout.strip())
-    return result.stdout.strip()
+from run_command import run_command
 
 
 def main():
@@ -16,14 +11,14 @@ def main():
 
     if directory_to_scan == "":
         directory_to_scan = os.path.expanduser("~")
-        command = f"sudo find {directory_to_scan} maxdepth 3 -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
+        command = f"find {directory_to_scan} -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
     elif directory_to_scan == "/":
         command = f"sudo find / maxdepth 3 -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
     else:
         command = f"find {directory_to_scan} -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
 
     a = run_command(command=command)
-    s=""
+    s = ""
     if a:
         print(
             "Enter 'X' to delete all above files, or \nEnter 'Y' to not delete any, or \nEnter the path of the file to delete a single file"
