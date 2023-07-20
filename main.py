@@ -5,6 +5,7 @@ import os
 from prettytable import PrettyTable
 import find_delete_duplicate as duplicate_deleter
 import search_by_specific_file_type as file_type_module
+import efficient_delete_find_pipe_rm
 
 
 def run_command(command):
@@ -69,7 +70,7 @@ def get_disk_partition():
 def main():
     while 1:
         print(
-            "What do you desire ..?\n\n1) Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Check for Large Files\n6) Exit"
+            "What do you desire ..?\n\n1) Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Check for Large Files\n6) Efficient Delete\n7) Exit"
         )
         xin = input("\nINPUT->")
         x = 0
@@ -99,6 +100,10 @@ def main():
             file_type_module.main()
             input("\n\nPRESS 'ENTER' to go HOME\n\n")
         elif x == 6:
+            efficient_delete_find_pipe_rm.main()
+            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+
+        elif x == 7:
             break
         else:
             print(
