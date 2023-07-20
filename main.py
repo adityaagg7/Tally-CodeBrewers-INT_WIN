@@ -3,32 +3,45 @@ import subprocess
 import psutil
 import os
 from prettytable import PrettyTable
+import find_delete_duplicate as duplicate_deleter
+import search_by_specific_file_type as file_type_module
 
 
 def run_command(command):
+    print("Starting Check\n")
     result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    print("Done\n")
     return result.stdout.strip()
 
 
+def get_large_files():
+    path = input("Enter Path of Directory to Search or press ENTER for Home\n")
+    if path == "/":
+        out = run_command(
+            f"sudo find {path} -maxdepth 4 -type f -print0 | xargs -0 du -sh | sort -rh | head -n 10"
+        )
+        print(out)
+        return
+
+    elif path == "":
+        path = os.path.expanduser("~")
+    elif path[len(path) - 1 != "/"]:
+        path += "/*"
+
+    else:
+        path += "*"
+    out = run_command(
+        f"sudo find {path} -type f -print0 | xargs -0 du -sh | sort -rh | head -n 10"
+    )
+    print(out)
+
+
 def get_disk_usage():
-    usage = psutil.disk_usage("./")
-
-    # # print(os.getcwd())
-    # total_space = usage.total
-    # used_space = usage.used
-    # free_space = usage.free
-    # perc = usage.percent
-    # total_gb = round(total_space*1e-9, 3)
-    # used_gb = round(used_space*1e-9, 3)
-    # free_gb = round(free_space*1e-9, 3)
-    # print(
-    #     f"\n\nTotal Space = {total_gb} GB \nUsed Space = {used_gb} GB \nFree Space = {free_gb} GB\nPercentage Used = {perc}%")
-
     total, used, free = shutil.disk_usage("/")
 
-    print(f"Total:  {(total // (2**30))}")
-    print(f"Used:  {(used // (2**30))})")
-    print(f"Free:  {(free // (2**30))})")
+    print(f"Total:  {(total // (2**30))} GiB")
+    print(f"Used:  {(used // (2**30))} GiB")
+    print(f"Free:  {(free // (2**30))} GiB")
     percent = ("{0:." + str(3) + "f}").format(100 * (used / float(total)))
 
     filledLength = int(100 * used // total)
@@ -43,7 +56,6 @@ def get_disk_partition():
 
     for disk in partitions:
         if disk.fstype:
-            # print(disk.device, psutil.disk_usage(disk.mountpoint))
             nam = disk.device
             disk = psutil.disk_usage(disk.mountpoint)
             total = disk.total
@@ -57,7 +69,7 @@ def get_disk_partition():
 def main():
     while 1:
         print(
-            "What do you desire ..? \n1) Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Exit"
+            "What do you desire ..?\n\n1) Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Check for Large Files\n6) Exit"
         )
         xin = input("\nINPUT->")
         x = 0
@@ -77,8 +89,16 @@ def main():
         elif x == 4:
             get_disk_partition()
             input("\n\nPRESS 'ENTER' to go HOME\n\n")
-
-        elif x == 45:
+        elif x == 5:
+            get_large_files()
+            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+        elif x == 2:
+            duplicate_deleter.main()
+            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+        elif x == 3:
+            file_type_module.main()
+            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+        elif x == 6:
             break
         else:
             print(
