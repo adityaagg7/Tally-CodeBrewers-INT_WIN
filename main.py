@@ -3,6 +3,7 @@ import subprocess
 import psutil
 import os
 from prettytable import PrettyTable
+import find_delete_duplicate as duplicate_deleter
 
 
 def run_command(command):
@@ -58,7 +59,7 @@ def get_disk_partition():
 def main():
     while 1:
         print(
-            "What do you desire ..? \n1) Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Check for Large Files\n6) Exit"
+            "What do you desire ..? \n1)Check Overall Disk Usage\n2) Check Duplicate Files\n3) Get Files and Usage by Type\n4) Disk Partitions\n5) Check for Large Files\n6) Check For Duplicate Files\n7) Exit"
         )
         xin = input("\nINPUT->")
         x = 0
@@ -82,6 +83,9 @@ def main():
             get_large_files()
             input("\n\nPRESS 'ENTER' to go HOME\n\n")
         elif x == 6:
+            duplicate_deleter.main()
+            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+        elif x == 7:
             break
         else:
             print(
