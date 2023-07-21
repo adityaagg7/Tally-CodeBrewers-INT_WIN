@@ -91,5 +91,5 @@ def main():
             for file_list in verified_duplicates:
                 delete_files(file_list)
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

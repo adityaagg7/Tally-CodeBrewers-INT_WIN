@@ -1,7 +1,7 @@
 from prettytable import PrettyTable
 import find_delete_duplicate as duplicate_deleter
 import search_by_specific_file_type as file_type_module
-import efficient_delete_find_pipe_rm
+import efficient_delete_improved
 import breakdown_by_file_types as breakdown_types
 from disk_usage_stats import get_disk_usage, get_disk_partition
 from large_files_check import get_large_files
@@ -103,7 +103,7 @@ def main():
                     break
         elif x == 6:
             while 1:
-                efficient_delete_find_pipe_rm.main()
+                efficient_delete_improved.main()
                 while 1:
                     a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
                     if a == 1 or 2:
