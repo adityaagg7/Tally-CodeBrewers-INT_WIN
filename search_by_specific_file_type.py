@@ -12,14 +12,14 @@ def main():
     while 1:
         if directory_to_scan == "":
             directory_to_scan = os.path.expanduser("~")
-            command = f"find {directory_to_scan} -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
+            command = f"find {directory_to_scan} -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -h "
             break
         elif directory_to_scan == "/":
-            command = f"sudo find / maxdepth 3 -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
+            command = f"sudo find / maxdepth 3 -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -h "
             break
         else:
             if os.path.exists(directory_to_scan) and os.path.isdir(directory_to_scan):
-                command = f"find {directory_to_scan} -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -rh"
+                command = f"find {directory_to_scan} -type f \\( -name \\*.{file_type} \\)   -print0 | xargs -0 du -sh | sort -h "
                 break
             else:
                 print(
@@ -50,5 +50,3 @@ def main():
             os.remove(s)
     else:
         print("No Duplicates Found!")
-
-X

@@ -23,9 +23,9 @@ def search_files():
 
     if directory_to_scan == "/":
         directory_to_scan = "/ -maxdepth 3"
-        command = f"sudo find {directory_to_scan} -type f \\( -name *.{file_type} \\) -print0 | xargs -0 du -sh | sort -rh"
+        command = f"sudo find {directory_to_scan} -type f \\( -name *.{file_type} \\) -print0 | xargs -0 du -sh | sort -h "
     else:
-        command = f"find {directory_to_scan} -type f \\( -name *.{file_type} \\) -print0 | xargs -0 du -sh | sort -rh"
+        command = f"find {directory_to_scan} -type f \\( -name *.{file_type} \\) -print0 | xargs -0 du -sh | sort -h "
 
     files_found = run_command(command=command)
     text_result.config(state=tk.NORMAL)

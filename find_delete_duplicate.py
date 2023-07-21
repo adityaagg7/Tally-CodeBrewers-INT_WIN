@@ -31,12 +31,20 @@ def find_duplicate_files(directory):
 
 
 def delete_files(file_list):
-    for file_path in tqdm(file_list):
-        try:
-            os.remove(file_path)
-            print(f"Deleted: {file_path}")
-        except Exception as e:
-            print(f"Failed to delete {file_path}: {e}")
+    if len(file_list) > 1000:
+        for file_path in tqdm(file_list):
+            try:
+                os.remove(file_path)
+                print(f"Deleted: {file_path}")
+            except Exception as e:
+                print(f"Failed to delete {file_path}: {e}")
+    else:
+        for file_path in file_list:
+            try:
+                os.remove(file_path)
+                print(f"Deleted: {file_path}")
+            except Exception as e:
+                print(f"Failed to delete {file_path}: {e}")
     print("\nDeletion Complete \n ")
 
 
@@ -47,7 +55,6 @@ def main():
     while True:
         dup_files = input("Enter the directory path to scan for duplicate files: ")
         dup_files = os.path.normpath(dup_files)
-        print(dup_files, "ASDF")
         if os.path.exists(dup_files) and os.path.isdir(dup_files):
             break
         print(f"Invalid directory: {dup_files}")
