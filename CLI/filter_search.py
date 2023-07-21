@@ -1,12 +1,11 @@
 import os
 
-image_set = {"jpg", "tif", "tiff", "eps", "jpeg", "png", "gif",
-             "bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"}
-video_set = {"mp4", "avi", "mkv", "mov", "wmv"}
-document_set = {"pdf", "doc", "docx", "txt", "ppt", "pptx"}
-audio_set = {"mp3", "wav", "ogg", "flac", "aac"}
-compressed_set = {"zip", "rar", "tar", "gz", "7z"}
-code_set = {"py", "java", "cpp", "h", "html", "css", "js", "json"}
+image_set = ["jpg", "tif", "tiff", "eps", "jpeg", "png", "gif","bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"]
+video_set = ["mp4", "avi", "mkv", "mov", "wmv"]
+document_set = ["pdf", "doc", "docx", "txt", "ppt", "pptx"]
+audio_set = ["mp3", "wav", "ogg", "flac", "aac"]
+compressed_set = ["zip", "rar", "tar", "gz", "7z"]
+code_set = ["py", "java", "cpp", "h", "html", "css", "js", "json"]
 
 
 def get_size_formatted(size_bytes):
@@ -37,7 +36,7 @@ def convert_size(size, unit, convert_bytes_to_unit):
 def find_files_by_extensions_and_size(directory, category_or_extensions, min_size, max_size, unit):
     matched_files = []
     extensions = []
-    print(category_or_extensions)
+    print(category_or_extensions,"STARTING")
     category_or_extensions = category_or_extensions.split(",")
     print(category_or_extensions)
     for category in category_or_extensions:
@@ -45,24 +44,22 @@ def find_files_by_extensions_and_size(directory, category_or_extensions, min_siz
         print(extensions)
         category = category.strip()
         if category == "images":
-            extensions = extensions.append(image_set)
+            extensions.extend(image_set)
         elif category == "videos":
-            extensions = extensions.append(video_set)
+            extensions.extend(video_set)
         elif category == "documents":
-            extensions = extensions.append(document_set)
+            extensions.extend(document_set)
         elif category == "audios":
-            extensions = extensions.append(audio_set)
+            extensions.extend(audio_set)
         elif category == "compressed":
-            extensions = extensions.append(compressed_set)
+            extensions.extend(compressed_set)
         elif category == "code":
-            extensions = extensions.append(code_set)
+            extensions.extend(code_set)
         else:
-            extensions = extensions.append(category)
+            extensions.append(category)
     print(extensions)
-    extensions = set(extensions)
+    extensions=set(extensions)
     print(extensions)
-    # valid_extensions = extensions.split(",")
-    # print(valid_extensions)
     if unit != "B":
         min_size = convert_size(min_size, unit, False)
         max_size = convert_size(max_size, unit, False)
@@ -73,7 +70,7 @@ def find_files_by_extensions_and_size(directory, category_or_extensions, min_siz
                     file_path = os.path.join(root, filename)
                     file_size_bytes = os.path.getsize(file_path)
                     if min_size <= file_size_bytes <= max_size:
-                        matched_files.append((file_path, file_size_bytes))
+                        matched_files.extend((file_path, file_size_bytes))
                     break
     return matched_files
 
