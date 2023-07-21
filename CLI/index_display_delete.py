@@ -47,4 +47,4 @@ def main(files):
                 print(f"File {m[int(index)][0]} not found \n")
 
 
-# main([('/Users/sunidhiaggarwal/Documents/GitHub/Tally-CodeBrewers-INT_WIN/tesat/testssfd', 24),('/home/gsuare/Desktop/hi/h1.txt', 77)])
+
