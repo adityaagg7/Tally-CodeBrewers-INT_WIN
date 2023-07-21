@@ -1,7 +1,6 @@
 from prettytable import PrettyTable
-# import find_delete_duplicate as duplicate_deleter
-import search_by_specific_file_type as file_type_module
-import efficient_delete_improved
+import filter_search as file_type_module
+import duplicate_delete_improved
 import breakdown_by_file_types as breakdown_types
 from disk_usage_stats import get_disk_usage, get_disk_partition
 from large_files_check import get_large_files
@@ -50,6 +49,32 @@ def main():
                 else:
                     print(f"\n{'*'*100}\n")
                     break
+        elif x == 2:
+            while 1:
+                efficient_delete_improved.main()
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
+                if a == 1:
+                    continue
+                else:
+                    print(f"\n{'*'*100}\n")
+                    break
+        elif x == 3:
+            while 1:
+                file_type_module.main()
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
+                if a == 1:
+                    continue
+                else:
+                    print(f"\n{'*'*100}\n")
+                    break
         elif x == 4:
             print("Showing Disk Usage Statistics:\n")
             while 1:
@@ -67,32 +92,6 @@ def main():
         elif x == 5:
             while 1:
                 get_large_files()
-                while 1:
-                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
-                    if a == 1 or 2:
-                        break
-
-                if a == 1:
-                    continue
-                else:
-                    print(f"\n{'*'*100}\n")
-                    break
-        elif x == 2:
-            while 1:
-                efficient_delete_improved.main()
-                while 1:
-                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
-                    if a == 1 or 2:
-                        break
-
-                if a == 1:
-                    continue
-                else:
-                    print(f"\n{'*'*100}\n")
-                    break
-        elif x == 3:
-            while 1:
-                file_type_module.main()
                 while 1:
                     a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
                     if a == 1 or 2:
@@ -133,14 +132,6 @@ def main():
         elif x == 8:
             while 1:
                 temp_files.main()
-                # while 1:
-                #     a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
-                #     if a == 1 or 2:
-                #         break
-
-                # if a == 1:
-                #     continue
-                # else:
                 print(f"\n{'*'*100}\n")
                 break
 
