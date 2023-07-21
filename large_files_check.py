@@ -10,7 +10,7 @@ def get_large_files():
     spinner_thread.start()
     if path == "/":
         out = run_command(
-            f"sudo find {path} -maxdepth 4 -type f -print0 | xargs -0 du -sh | sort -h | head -n 10"
+            f"sudo find {path} -maxdepth 4 -type f -print0 | xargs -0 du -sh |  sort -rh  | head -n 10"
         )
         # print(out)
         return
@@ -23,7 +23,7 @@ def get_large_files():
     else:
         path += "*"
     a = run_command(
-        f"find {path} -type f -print0 | xargs -0 du -sh | sort -h | head -n 10"
+        f"find {path} -type f -print0 | xargs -0 du -sh |  sort -rh  | head -n 10"
     )
     spinner_thread.stop()
 
