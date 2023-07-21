@@ -1,7 +1,18 @@
 import os
 import hashlib
 import filecmp
+import index_display_delete
 
+
+def get_size_formatted(size_bytes):
+    size_kb = size_bytes / 1024
+    if size_kb < 1024:
+        return f"{size_kb:.2f}KB"
+    size_mb = size_kb / 1024
+    if size_mb < 1024:
+        return f"{size_mb:.2f}MB"
+    size_gb = size_mb / 1024
+    return f"{size_gb:.2f}GB"
 
 def get_file_hash(filename, block_size=65536):
     hasher = hashlib.sha256()
@@ -30,7 +41,7 @@ def find_duplicate_files(directory):
 
 
 def delete_files(file_list):
-    for file_path in file_list[1:]:  # Skip the first file (original file)
+    for file_path in file_list[1:]:  
         try:
             os.remove(file_path)
             print(f"Deleted: {file_path}")
@@ -42,20 +53,20 @@ def verify_duplicates(duplicate_files):
     verified_duplicates = []
 
     for file_list in duplicate_files:
-        # Create a dictionary to group files by size
+
         size_group = {}
         for file_path in file_list:
             size = os.path.getsize(file_path)
             size_group.setdefault(size, []).append(file_path)
 
-        # For each size group, compare files byte-by-byte if there are more than one file
+
         for group_files in size_group.values():
             if len(group_files) > 1:
                 verified_group = []
-                # Compare files byte-by-byte
+
                 for file_path in group_files:
                     if verified_group:
-                        # If any file in the group is not a duplicate, skip the group
+
                         break
                     verified_group.append(file_path)
                     for other_file_path in group_files:
@@ -64,11 +75,11 @@ def verify_duplicates(duplicate_files):
                         if filecmp.cmp(file_path, other_file_path):
                             verified_group.append(other_file_path)
                         else:
-                            # If any file is not a duplicate, skip the group
+
                             verified_group.clear()
                             break
 
-                # If more than one file in the group, consider them verified duplicates
+
                 if len(verified_group) > 1:
                     verified_duplicates.append(verified_group)
 
@@ -76,7 +87,7 @@ def verify_duplicates(duplicate_files):
 
 
 def main():
-    # Same as before
+
     directory_to_scan = input("Enter the directory to scan: ").strip()
 
     duplicate_files = find_duplicate_files(directory_to_scan)
@@ -86,17 +97,14 @@ def main():
     if not verified_duplicates:
         print("No duplicate files found.")
     else:
-        print("Duplicate files found:")
+        print(f"{len(verified_duplicates)} Groups of Duplicate files found!")
         for i, file_list in enumerate(verified_duplicates, 1):
-            print(f"Group {i}:")
+            list_to_send=[]
             for file_path in file_list:
-                print(file_path)
+                list_to_send.append([file_path,get_size_formatted(os.path.getsize(file_path))])
+            index_display_delete.main(list_to_send)
 
-        confirm_deletion = input(
-            "Do you want to delete these files? (yes/no): ").strip().lower()
-        if confirm_deletion == "yes":
-            for file_list in verified_duplicates:
-                delete_files(file_list)
+        
 
 # if __name__ == "__main__":
 #     main()
