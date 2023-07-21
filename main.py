@@ -24,6 +24,7 @@ def main():
         print(hometable)
         xin = input("\nEnter Your Choice: \n")
         x = 0
+        a = 0
         try:
             x = int(xin)
         except:
@@ -37,60 +38,95 @@ def main():
             print("Showing Disk Usage Statistics:\n")
             while 1:
                 get_disk_usage()
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or a == 2:
+                        break
+
                 if a == 1:
                     continue
                 else:
+                    print(f"\n{'*'*100}\n")
                     break
         elif x == 4:
             print("Showing Disk Usage Statistics:\n")
             while 1:
                 get_disk_partition()
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
                 if a == 1:
                     continue
                 else:
+                    print(f"\n{'*'*100}\n")
                     break
         elif x == 5:
             while 1:
                 get_large_files()
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
                 if a == 1:
                     continue
                 else:
+                    print(f"\n{'*'*100}\n")
                     break
         elif x == 2:
             while 1:
                 duplicate_deleter.main()
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
                 if a == 1:
                     continue
                 else:
+                    print(f"\n{'*'*100}\n")
                     break
         elif x == 3:
             while 1:
                 file_type_module.main()
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
                 if a == 1:
                     continue
                 else:
+                    print(f"\n{'*'*100}\n")
                     break
         elif x == 6:
             while 1:
                 efficient_delete_find_pipe_rm.main()
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
                 if a == 1:
                     continue
                 else:
+                    print(f"\n{'*'*100}\n")
                     break
 
         elif x == 7:
             while 1:
                 breakdown_types.main()
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or 2:
+                        break
+
                 if a == 1:
                     continue
                 else:
+                    print(f"\n{'*'*100}\n")
                     break
 
         elif x == 8:
