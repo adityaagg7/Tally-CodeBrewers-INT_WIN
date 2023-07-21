@@ -1,12 +1,13 @@
 import os
 import index_display_delete
 
-image_set = ["jpg", "tif", "tiff", "eps", "jpeg", "png", "gif","bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"]
+image_set = ["jpg", "tif", "tiff", "eps", "jpeg", "png", "gif",
+             "bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"]
 video_set = ["mp4", "avi", "mkv", "mov", "wmv"]
 document_set = ["pdf", "doc", "docx", "txt", "ppt", "pptx"]
 audio_set = ["mp3", "wav", "ogg", "flac", "aac"]
 compressed_set = ["zip", "rar", "tar", "gz", "7z"]
-code_set = ["py", "java", "cpp", "h", "html", "css", "js", "json","md"]
+code_set = ["py", "java", "cpp", "h", "html", "css", "js", "json", "md"]
 
 
 def get_size_formatted(size_bytes):
@@ -37,7 +38,7 @@ def convert_size(size, unit, convert_bytes_to_unit):
 def find_files_by_extensions_and_size(directory, category_or_extensions, min_size, max_size, unit):
     matched_files = []
     extensions = []
-    print(category_or_extensions,"STARTING")
+    print(category_or_extensions, "STARTING")
     category_or_extensions = category_or_extensions.split(",")
     print(category_or_extensions)
     for category in category_or_extensions:
@@ -59,7 +60,7 @@ def find_files_by_extensions_and_size(directory, category_or_extensions, min_siz
         else:
             extensions.append(category)
     print(extensions)
-    extensions=set(extensions)
+    extensions = set(extensions)
     print(extensions)
     if unit != "B":
         min_size = convert_size(min_size, unit, False)
@@ -71,7 +72,7 @@ def find_files_by_extensions_and_size(directory, category_or_extensions, min_siz
                     file_path = os.path.join(root, filename)
                     file_size_bytes = os.path.getsize(file_path)
                     if min_size <= file_size_bytes <= max_size:
-                        matched_files.append([file_path, get_size_formatted(file_size_bytes)])
+                        matched_files.append([file_path, file_size_bytes])
                     break
     # print(matched_files)
     return matched_files
@@ -91,10 +92,10 @@ def main():
 
     if matched_files:
         matched_files.sort(key=lambda x: x[1])
-        
+        for i in range(0, len(matched_files)):
+            matched_files[i][1] = get_size_formatted(matched_files[i][1])
         index_display_delete.main(matched_files)
-        
-            
+
     else:
         print("No files found matching the criteria.")
 

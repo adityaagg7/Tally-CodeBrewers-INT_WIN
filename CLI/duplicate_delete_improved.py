@@ -2,6 +2,7 @@ import os
 import hashlib
 import filecmp
 
+
 def get_file_hash(filename, block_size=65536):
     hasher = hashlib.sha256()
     with open(filename, "rb") as file:
@@ -11,6 +12,7 @@ def get_file_hash(filename, block_size=65536):
                 break
             hasher.update(data)
     return hasher.hexdigest()
+
 
 def find_duplicate_files(directory):
     file_hash_dict = {}
@@ -22,8 +24,10 @@ def find_duplicate_files(directory):
             file_hash = get_file_hash(file_path)
             file_hash_dict.setdefault(file_hash, []).append(file_path)
 
-    duplicate_files = [file_list for file_list in file_hash_dict.values() if len(file_list) > 1]
+    duplicate_files = [
+        file_list for file_list in file_hash_dict.values() if len(file_list) > 1]
     return duplicate_files
+
 
 def delete_files(file_list):
     for file_path in file_list[1:]:  # Skip the first file (original file)
@@ -32,6 +36,7 @@ def delete_files(file_list):
             print(f"Deleted: {file_path}")
         except Exception as e:
             print(f"Failed to delete {file_path}: {e}")
+
 
 def verify_duplicates(duplicate_files):
     verified_duplicates = []
@@ -69,9 +74,10 @@ def verify_duplicates(duplicate_files):
 
     return verified_duplicates
 
+
 def main():
     # Same as before
-    directory_to_scan = "C:/Users/DELL/OneDrive/Desktop/h1"
+    directory_to_scan = input("Enter the directory to scan: ").strip()
 
     duplicate_files = find_duplicate_files(directory_to_scan)
 
@@ -86,7 +92,8 @@ def main():
             for file_path in file_list:
                 print(file_path)
 
-        confirm_deletion = input("Do you want to delete these files? (yes/no): ").strip().lower()
+        confirm_deletion = input(
+            "Do you want to delete these files? (yes/no): ").strip().lower()
         if confirm_deletion == "yes":
             for file_list in verified_duplicates:
                 delete_files(file_list)

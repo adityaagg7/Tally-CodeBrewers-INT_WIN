@@ -14,7 +14,7 @@ def main(files):
 
     print(table)
     inp = input(
-        "\nEnter the comma-separated indices of the files to be deleted or leave empty to exit:   ")
+        "\nEnter the comma-separated indices or hyphen separated range of the files to be deleted or leave empty to exit:   ")
 
     if len(inp) == 0:
         return
@@ -34,17 +34,14 @@ def main(files):
             for i in range(index1, index2+1):
                 if os.path.exists(m[int(i)][0]):
                     os.remove(m[int(i)][0])
-                    table.del_row(int(i))
+                    # table.del_row(int(i))
                     print("Deleted ", m[int(i)][0], "\n")
                 else:
                     print(f"File {m[int(i)][0]} not found \n")
         else:
             if os.path.exists(m[int(index)][0]):
                 os.remove(m[int(index)][0])
-                table.del_row(int(index))
+                # table.del_row(int(index))
                 print("Deleted ", m[int(index)][0], "\n")
             else:
                 print(f"File {m[int(index)][0]} not found \n")
-
-
-
