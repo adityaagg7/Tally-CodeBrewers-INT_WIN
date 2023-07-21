@@ -1,11 +1,12 @@
 from prettytable import PrettyTable
-import find_delete_duplicate as duplicate_deleter
+# import find_delete_duplicate as duplicate_deleter
 import search_by_specific_file_type as file_type_module
 import efficient_delete_improved
 import breakdown_by_file_types as breakdown_types
 from disk_usage_stats import get_disk_usage, get_disk_partition
 from large_files_check import get_large_files
-
+import temp_files 
+import efficient_delete_find_pipe_rm.py as effdelete
 
 def main():
     while 1:
@@ -20,7 +21,8 @@ def main():
             ["6.", "Efficiently Delete High Number of Files"], divider=True
         )
         hometable.add_row(["7.", "Check Space Used by Each File Type "], divider=True)
-        hometable.add_row(["8.", "Exit"], divider=True)
+        hometable.add_row(["8.", "Temporary Files"], divider=True)
+        hometable.add_row(["9.", "Exit"], divider=True)
         print(hometable)
         xin = input("\nEnter Your Choice: \n")
         x = 0
@@ -77,7 +79,7 @@ def main():
                     break
         elif x == 2:
             while 1:
-                duplicate_deleter.main()
+                efficient_delete_improved.main()
                 while 1:
                     a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
                     if a == 1 or 2:
@@ -103,7 +105,7 @@ def main():
                     break
         elif x == 6:
             while 1:
-                efficient_delete_improved.main()
+                effdelete.main()
                 while 1:
                     a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
                     if a == 1 or 2:
@@ -128,8 +130,21 @@ def main():
                 else:
                     print(f"\n{'*'*100}\n")
                     break
-
         elif x == 8:
+            while 1:
+                temp_files.main()
+                # while 1:
+                #     a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                #     if a == 1 or 2:
+                #         break
+
+                # if a == 1:
+                #     continue
+                # else:
+                print(f"\n{'*'*100}\n")
+                break
+
+        elif x == 9:
             break
         else:
             print(

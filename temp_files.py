@@ -188,12 +188,12 @@ def main():
                     print("Invalid input detected, please try again!\n")
                     continue
         elif x == 8:
-            break
+            return
         else:
             print(
                 "Unkown Input Detected, Please Stick to the above number range, and lets try again ,shall we?\n"
             )
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
