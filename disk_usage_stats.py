@@ -5,7 +5,7 @@ from run_command import run_command
 
 
 def get_disk_usage():
-    total, used, free = shutil.disk_usage("/Users")
+    total, used, free = shutil.disk_usage("/")
     table = PrettyTable()
     table.field_names = [" ", "Size"]
 
