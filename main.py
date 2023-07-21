@@ -6,7 +6,7 @@ import breakdown_by_file_types as breakdown_types
 from disk_usage_stats import get_disk_usage, get_disk_partition
 from large_files_check import get_large_files
 import temp_files 
-import efficient_delete_find_pipe_rm.py as effdelete
+import efficient_delete_find_pipe_rm as effdelete
 
 def main():
     while 1:
