@@ -7,6 +7,7 @@ def main(files):
     i = 0
     table = PrettyTable()
     table.field_names = ['Index', 'Size', 'FilePath']
+    table.align["FilePath"]="l"
     for path, size in files:
         m[i] = (path, size)
         table.add_row([i, m[i][1], m[i][0]], divider=True)
