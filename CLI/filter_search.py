@@ -36,35 +36,39 @@ def convert_size(size, unit, convert_bytes_to_unit):
 
 def find_files_by_extensions_and_size(directory, category_or_extensions, min_size, max_size, unit):
     matched_files = []
-    extensions = {}
+    extensions = []
     print(category_or_extensions)
     category_or_extensions = category_or_extensions.split(",")
     print(category_or_extensions)
     for category in category_or_extensions:
         print(category)
+        print(extensions)
+        category = category.strip()
         if category == "images":
-            extensions = ','.join(image_set)
+            extensions = extensions.append(image_set)
         elif category == "videos":
-            extensions = ','.join(video_set)
+            extensions = extensions.append(video_set)
         elif category == "documents":
-            extensions = ','.join(document_set)
+            extensions = extensions.append(document_set)
         elif category == "audios":
-            extensions = ','.join(audio_set)
+            extensions = extensions.append(audio_set)
         elif category == "compressed":
-            extensions = ','.join(compressed_set)
+            extensions = extensions.append(compressed_set)
         elif category == "code":
-            extensions = ','.join(code_set)
+            extensions = extensions.append(code_set)
         else:
-            extensions = ','.join(category)
+            extensions = extensions.append(category)
     print(extensions)
-    valid_extensions = extensions.split(",")
-    print(valid_extensions)
+    extensions = set(extensions)
+    print(extensions)
+    # valid_extensions = extensions.split(",")
+    # print(valid_extensions)
     if unit != "B":
         min_size = convert_size(min_size, unit, False)
         max_size = convert_size(max_size, unit, False)
     for root, _, filenames in os.walk(directory):
         for filename in filenames:
-            for extension in valid_extensions:
+            for extension in extensions:
                 if filename.endswith("." + extension.strip()):
                     file_path = os.path.join(root, filename)
                     file_size_bytes = os.path.getsize(file_path)
