@@ -33,31 +33,65 @@ def main():
             continue
 
         print(f"\n{'*'*100}\n")
-
         if x == 1:
             print("Showing Disk Usage Statistics:\n")
-            get_disk_usage()
-            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+            while 1:
+                get_disk_usage()
+                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                if a == 1:
+                    continue
+                else:
+                    break
         elif x == 4:
             print("Showing Disk Usage Statistics:\n")
-            get_disk_partition()
-            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+            while 1:
+                get_disk_partition()
+                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                if a == 1:
+                    continue
+                else:
+                    break
         elif x == 5:
-            get_large_files()
-            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+            while 1:
+                get_large_files()
+                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                if a == 1:
+                    continue
+                else:
+                    break
         elif x == 2:
-            duplicate_deleter.main()
-            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+            while 1:
+                duplicate_deleter.main()
+                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                if a == 1:
+                    continue
+                else:
+                    break
         elif x == 3:
-            file_type_module.main()
-            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+            while 1:
+                file_type_module.main()
+                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                if a == 1:
+                    continue
+                else:
+                    break
         elif x == 6:
-            efficient_delete_find_pipe_rm.main()
-            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+            while 1:
+                efficient_delete_find_pipe_rm.main()
+                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                if a == 1:
+                    continue
+                else:
+                    break
 
         elif x == 7:
-            breakdown_types.main()
-            input("\n\nPRESS 'ENTER' to go HOME\n\n")
+            while 1:
+                breakdown_types.main()
+                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                if a == 1:
+                    continue
+                else:
+                    break
 
         elif x == 8:
             break
