@@ -51,6 +51,12 @@ Main Menu for GUI:
 ![MainMenu-GUI](./data/MainMenu-GUI.png)
 
 
+File Explorer:
+
+
+![FileExplorer](./data/FileExplorer.jpg)
+
+
 ## Contributing
 
 Contributions are welcome! If you encounter any issues or have suggestions for improvement, please submit an issue or create a pull request.
