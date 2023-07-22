@@ -65,15 +65,12 @@ def main():
         except Exception as e:
             messagebox.showinfo("Error", f"Failed to delete the file: {e}")
 
-    # Create the main application window
     window = tk.Tk()
     window.title("File Search and Delete")
     window.geometry("600x500")
 
-    # Set custom font
     custom_font = ("Helvetica", 12)
 
-    # Create the widgets
     label_file_type = tk.Label(window, text="Enter the file type you want to search for:", font=custom_font)
     entry_file_type = tk.Entry(window, width=20, font=custom_font)
     label_directory_path = tk.Label(
@@ -93,7 +90,6 @@ def main():
     button_delete_all_files = tk.Button(window, text="Delete All Files", command=delete_all_files, font=custom_font,
                                         bg="#dc3545", fg="white", padx=5)
 
-    # Grid layout
     label_file_type.grid(row=0, column=0, padx=5, pady=5, sticky="w")
     entry_file_type.grid(row=0, column=1, padx=5, pady=5, sticky="w")
     label_directory_path.grid(row=1, column=0, padx=5, pady=5, sticky="w", columnspan=2)

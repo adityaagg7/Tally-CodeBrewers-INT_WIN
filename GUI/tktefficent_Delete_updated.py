@@ -5,7 +5,6 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 def main():
     def delete_files_in_directory(directory):
-        """Delete all files in the specified directory using find and xargs."""
         try:
             start_time = time.time()
             command = f"find {directory} -type f -print0 | xargs -0 rm -f"
@@ -28,12 +27,10 @@ def main():
             directory_to_delete = os.path.expanduser("~")
         delete_files_in_directory(directory_to_delete)
 
-    # Create the main application window
     window = tk.Tk()
     window.title("File Deletion")
     window.geometry("700x150")
 
-    # Create the widgets
     custom_font = ("Helvetica", 12)
     
     
@@ -42,11 +39,9 @@ def main():
     button_browse = tk.Button(window, text="Browse", command=browse_directory,font = custom_font)
     button_delete = tk.Button(window, text="Delete Files", command=delete_files,font = custom_font,bg="#3c8dbc",fg="white")
 
-    # Pack the widgets using grid layout
     label_directory.grid(row=0, column=0, padx=5, pady=5)
     entry_directory.grid(row=0, column=1, padx=5, pady=5)
     button_browse.grid(row=0, column=2, padx=5, pady=5)
     button_delete.grid(row=1, column=0, columnspan=3, padx=5, pady=10)
 
-    # Run the tkinter main loop
     window.mainloop()

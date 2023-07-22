@@ -81,19 +81,18 @@ def get_large_files(entry_path):
 # def delete_items(list_2):
 
 def browse_directory(entry_path):
-    # Function to browse and set the directory path using a file dialog
     directory_path = filedialog.askdirectory()
     if directory_path:
         entry_path.delete(0, tk.END)
         entry_path.insert(0, directory_path)
         
 def main():
-    # Create the main application window
+
     window = tk.Tk()
     window.title("Large Files Finder")
     window.geometry("700x600")
 
-    # Create the widgets
+
     label_path = tk.Label(window, text="Enter the directory path to search or browse:")
     entry_path = tk.Entry(window, width=40)
     button_browse = tk.Button(window, text="Browse", command=lambda: browse_directory(entry_path))
@@ -101,7 +100,7 @@ def main():
     # text_box = tk.Text(window, wrap=tk.WORD, width=80, height=15)  # Create the text box
     # button_delete = tk.Button(window, text="Delete Files", command=lambda: delete_items(list_2))
 
-    # Pack the widgets
+
     label_path.pack(pady=10)
     entry_path.pack(pady=5)
     button_browse.pack(pady=5)
@@ -109,5 +108,5 @@ def main():
     # text_box.pack(pady=10)  # Pack the text box
     # button_delete.pack(pady=5)
 
-    # Run the tkinter main loop
+
     window.mainloop()

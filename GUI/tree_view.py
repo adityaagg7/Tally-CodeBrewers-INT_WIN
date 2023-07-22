@@ -81,13 +81,11 @@ def main():
 
     def create_tree(root):
         treeview.insert("", "end", text=home_directory, open=True)
-        # Calling pack method on the treeview
         treeview.pack()
         populate_treeview(treeview, "", home_directory)
 
 
 
-    # Create the main application window
     root = tk.Tk()
     root.title('Tkinter Horizontal Layouts')
 

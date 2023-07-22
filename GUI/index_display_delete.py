@@ -85,7 +85,7 @@ def main(files):
     print("updating table")
     update_table(table, files)
 
-    # Create the widgets
+
     label_info = tk.Label(
         window,
         text="Enter the comma-separated indices or hyphen-separated range of the files to be deleted or leave empty "
@@ -97,7 +97,7 @@ def main(files):
     # button_refresh = tk.Button(window, text="Refresh", command=update_table)
     button_quit = tk.Button(window, text="Quit", command=lambda:on_closing(window))
 
-    # Pack the widgets with proper formatting
+
     label_info.pack()
     # entry_indices.pack()
     # button_delete_indices.pack()

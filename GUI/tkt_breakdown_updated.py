@@ -6,7 +6,6 @@ from tqdm import tqdm
 
 def main():
     def get_size_formatted(size_bytes):
-        # Function to convert bytes to a human-readable format (e.g., KB, MB, GB, etc.)
         size_kb = size_bytes / 1024
         if size_kb < 1024:
             return f"{size_kb:.2f}KB"
@@ -84,7 +83,6 @@ def main():
         result_text.insert(tk.END, f"Other Files: {other_files_size}\n")
         result_text.config(state=tk.DISABLED)
 
-    # Image, Video, Document, Audio, Compressed, and Code file extensions sets
     image_set = {"jpg", "tif", "tiff", "eps", "jpeg", "png", "gif", "bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"}
     video_set = {"mp4", "avi", "mkv", "mov", "wmv"}
     document_set = {"pdf", "doc", "docx", "txt", "ppt", "pptx"}
@@ -92,24 +90,21 @@ def main():
     compressed_set = {"zip", "rar", "tar", "gz", "7z"}
     code_set = {"py", "java", "cpp", "h", "html", "css", "js", "json"}
 
-    # Create the main application window
     window = tk.Tk()
     window.title("File Size Calculator")
     window.geometry("850x400")
     custom_font = ("Helvetica", 12)
-    # Create the widgets
+
     label_directory = tk.Label(window, text="Enter the directory path to calculate file sizes:")
     entry_directory = tk.Entry(window, width=50)
     button_browse = tk.Button(window, text="Browse", command=lambda: entry_directory.insert(tk.END, filedialog.askdirectory()))
     button_calculate = tk.Button(window, text="Calculate Sizes", command=calculate_sizes,font=custom_font, bg="#3c8dbc", fg="white")
     result_text = tk.Text(window, wrap=tk.WORD, state=tk.DISABLED, height=15, width=70)
 
-    # Pack the widgets using grid layout
     label_directory.grid(row=0, column=0, padx=5, pady=5)
     entry_directory.grid(row=0, column=1, padx=5, pady=5)
     button_browse.grid(row=0, column=2, padx=5, pady=5)
     button_calculate.grid(row=1, column=0, columnspan=3, padx=5, pady=10)
     result_text.grid(row=2, column=0, columnspan=3, padx=5, pady=5)
 
-    # Run the tkinter main loop
     window.mainloop()
