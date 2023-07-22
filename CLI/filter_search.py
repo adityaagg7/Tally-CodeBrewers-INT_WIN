@@ -42,8 +42,8 @@ def find_files_by_extensions_and_size(directory, category_or_extensions, min_siz
     category_or_extensions = category_or_extensions.split(",")
     print(category_or_extensions)
     for category in category_or_extensions:
-        print(category)
-        print(extensions)
+        # print(category)
+        # print(extensions)
         category = category.strip()
         if category == "images":
             extensions.extend(image_set)
