@@ -24,7 +24,8 @@ def get_directory_size(path):
 
 
 def get_subdirectory_sizes(path):
-    subdirectories = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
+    subdirectories = [d for d in os.listdir(
+        path) if os.path.isdir(os.path.join(path, d))]
     sizes = []
     for subdir in subdirectories:
         subdir_path = os.path.join(path, subdir)
@@ -49,47 +50,39 @@ def get_path_of_item(self):
 
 def create_pie_chart(frame, path):
     sizes = get_subdirectory_sizes(path)
-    subdirectories = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
+    subdirectories = [d for d in os.listdir(
+        path) if os.path.isdir(os.path.join(path, d))]
 
-    fig = Figure()  # create a figure object
-    ax = fig.add_subplot(111)  # add an Axes to the figure
+    fig = Figure()
+    ax = fig.add_subplot(111)
     # wedges, patches, texts = ax.pie(sizes, labels=None, autopct='%1.1f%%')
     ax.pie(sizes, labels=None)
     # ax.pie(sizes, labels=subdirectories, autopct='%1.1f%%')
-    # Display the pie chart in the content_frame using FigureCanvasTkAgg
     # patches, labels, dummy = zip(*sorted(zip(patches, subdirectories, sizes),
     #                                      key=lambda x: x[2],
     #                                      reverse=True))
     # ax.legend(patches, labels, loc='center left', bbox_to_anchor=(-0.1, 1.),
     # fontsize=8)
-    # labels = [f'{l}, {s:0.1f}%' for l, s in zip(labels, sizes)]
-    ax.legend()
+    labels = [f'{l}, {s:0.1f}%' for l, s in zip(subdirectories, sizes)]
+    ax.legend(bbox_to_anchor=(0.5, -0.05), loc='lower left', labels=labels)
     canvas = FigureCanvasTkAgg(fig, master=frame)
     canvas.draw()
     canvas.get_tk_widget().pack(fill='both', expand=True)
 
 
-def create_vertical_buttons(frame, num_buttons):
-    for i in range(num_buttons):
-        ttk.Button(frame, text=f'Button {i + 1}').grid(row=i, column=0, pady=5)
+# def create_vertical_buttons(frame, num_buttons):
+#     for i in range(num_buttons):
+#         ttk.Button(frame, text=f'Button {i + 1}').grid(row=i, column=0, pady=5)
 
 
 def populate_treeview(tree, parent, path):
-    # Get a list of all items in the directory
     items = os.listdir(path)
-
     for item in items:
-        # Get the full path of the item
         item_path = os.path.join(path, item)
-
-        # Determine if the item is a directory or a file
         is_directory = os.path.isdir(item_path)
-
-        # Insert the item into the treeview
         item_id = tree.insert(parent, "end", text=item, open=False)
 
         if is_directory:
-            # If it's a directory, recursively populate its sub-items
             populate_treeview(tree, item_id, item_path)
 
 
@@ -112,22 +105,8 @@ def create_tree(root):
     # treeview.insert('', 'end', 'item4',
     #                 text ='Programming Languages')
 
-    # # Inserting more than one attribute of an item
-    # treeview.insert('item2', 'end', 'Algorithm',
-    #                 text ='Algorithm') 
-    # treeview.insert('item2', 'end', 'Data structure',
-    #                 text ='Data structure')
-    # treeview.insert('item3', 'end', '2018 paper',
-    #                 text ='2018 paper') 
-    # treeview.insert('item3', 'end', '2019 paper',
-    #                 text ='2019 paper')
-    # treeview.insert('item4', 'end', 'Python',
-    #                 text ='Python')
-    # treeview.insert('item4', 'end', 'Java',
-    #                 text ='Java')
-
     # # Placing each child items in parent widget
-    # treeview.move('item2', 'item1', 'end') 
+    # treeview.move('item2', 'item1', 'end')
     # treeview.move('item3', 'item1', 'end')
     # treeview.move('item4', 'item1', 'end')
 
@@ -136,9 +115,8 @@ def create_tree(root):
 root = tk.Tk()
 root.title('Tkinter Horizontal Layouts')
 
-# Create the three horizontal layouts (frames)
-left_frame = ttk.Frame(root, padding=10)
-left_frame.grid(row=0, column=0, sticky='ns')
+# left_frame = ttk.Frame(root, padding=10)
+# left_frame.grid(row=0, column=0, sticky='ns')
 
 center_frame = ttk.Frame(root, padding=10)
 center_frame.grid(row=0, column=1, sticky='ns')
@@ -146,17 +124,14 @@ center_frame.grid(row=0, column=1, sticky='ns')
 right_frame = ttk.Frame(root, padding=10)
 right_frame.grid(row=0, column=2, sticky='ns')
 
-treeview = ttk.Treeview(center_frame)
+treeview = ttk.Treeview(center_frame, columns=1)
+treeview.column("1", width=150)
 treeview.bind('<ButtonRelease-1>', get_path_of_item)
 home_directory = os.path.expanduser("~")
 
 create_pie_chart(right_frame, home_directory)
-# Add vertical buttons to the extreme left layout
-create_vertical_buttons(left_frame, 5)
-
-# Add vertical buttons to the extreme right layout
+# create_vertical_buttons(left_frame, 5)
 # create_vertical_buttons(right_frame, 10)
 
 create_tree(root)
-# Start the Tkinter main loop
 root.mainloop()
