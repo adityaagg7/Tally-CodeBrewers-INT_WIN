@@ -28,7 +28,27 @@ Disk Space Manager is a disk space management application that allows users to e
     - pip install -r requirements.txt
 
 3. Run the application:
-    - python app.py
+
+For CLI:
+
+    python CLI/main.py
+
+
+For GUI
+    
+    python GUI/main_tk_updated.py
+
+
+## ScreenShots
+
+Main Menu for CLI:
+
+![MainMenu-CLI](./data/MainMenu-CLI.png)
+
+Main Menu for GUI:
+
+
+![MainMenu-GUI](./data/MainMenu-GUI.png)
 
 
 ## Contributing

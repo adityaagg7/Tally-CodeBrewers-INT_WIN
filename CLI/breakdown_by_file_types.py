@@ -12,7 +12,6 @@ code_set={"py", "java", "cpp", "h", "html", "css", "js", "json"}
 
 
 def get_size_formatted(size_bytes):
-    # Function to convert bytes to a human-readable format (e.g., KB, MB, GB, etc.)
     size_kb = size_bytes / 1024
     if size_kb < 1024:
         return f"{size_kb:.2f}KB"
