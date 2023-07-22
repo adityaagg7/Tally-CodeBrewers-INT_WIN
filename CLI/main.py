@@ -6,7 +6,7 @@ from disk_usage_stats import get_disk_usage, get_disk_partition
 from large_files_check import get_large_files
 import temp_files
 import efficient_delete_find_pipe_rm as effdelete
-
+import schedule_tasks
 
 def main():
     while 1:
@@ -23,7 +23,8 @@ def main():
         hometable.add_row(
             ["7.", "Check Space Used by Each File Type "], divider=True)
         hometable.add_row(["8.", "Temporary Files"], divider=True)
-        hometable.add_row(["9.", "Exit"], divider=True)
+        hometable.add_row(["9.", "Schedule Jobs"], divider=True)
+        hometable.add_row(["10.", "Exit"], divider=True)
         print(hometable)
         xin = input("\nEnter Your Choice: \n")
         x = 0
@@ -138,6 +139,12 @@ def main():
                 break
 
         elif x == 9:
+            while 1:
+                schedule_tasks.main()
+                print(f"\n{'*'*100}\n")
+                break
+                
+        elif x == 10:
             break
         else:
             print(

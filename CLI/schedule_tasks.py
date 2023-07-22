@@ -31,7 +31,7 @@ def main():
         if os.path.exists(log_dir) != True:
             print("creating log directory and file at ", log_file)
             os.mkdir(log_dir)
-            with open(log_dir, '/myfile.txt', 'w') as fp:
+            with open(os.path.join(log_dir,'cron_logs.log'), 'w') as fp:
                 pass
 
         xin = ""
