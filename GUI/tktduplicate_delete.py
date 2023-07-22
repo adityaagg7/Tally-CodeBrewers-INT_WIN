@@ -107,7 +107,9 @@ def main():
 
     def helper():
         print(result_list)
-        return index_display_delete.main(result_list[0])
+        for i in result_list:
+            print(i)
+            index_display_delete.main(i)
 
     window = tk.Tk()
     window.title("Duplicate File Finder")
@@ -115,9 +117,9 @@ def main():
 
     label_path = tk.Label(window, text="Enter the directory path to scan for duplicates:")
     entry_path = tk.Entry(window, width=40)
-    button_browse = tk.Button(window, text="Browse", command=browse_directory)
+    button_browse = tk.Button(window, text="Browse", command= browse_directory)
     button_find_display_duplicates = tk.Button(window, text="Find and Display Duplicates",
-                                               command=find_and_display_duplicates)
+                                               command= find_and_display_duplicates)
     result_text = tk.StringVar()
     button_delete = tk.Button(window, text="Delete", command=helper)
     result_label = tk.Label(window, textvariable=result_text)
