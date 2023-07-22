@@ -5,7 +5,7 @@ from tkinter import filedialog
 from run_command import run_command
 
 
-def main():
+def main(files):
     def get_large_files():
         path = entry_path.get().strip()
         if path == "/":
@@ -21,10 +21,32 @@ def main():
         out = run_command(
             f"sudo find {path} -type f -print0 | xargs -0 du -sh | sort -rh | head -n 10"
         )
-        text_output.config(state=tk.NORMAL)
-        text_output.delete("1.0", tk.END)
-        text_output.insert(tk.END, out)
-        text_output.config(state=tk.DISABLED)
+        # text_output.config(state=tk.NORMAL)
+        # text_output.delete("1.0", tk.END)
+        # text_output.insert(tk.END, out)
+        # text_output.config(state=tk.DISABLED)
+        a = a.split("\n")
+
+        list = []
+        total_size = 0
+        for line in a:
+            size = line.split("\t")[0]
+            nam = line.split("\t")[1]
+            # print(line)
+            # print(size)
+            list.append([nam, size])
+            if size[-1] == "B":
+                size = float(size[:-1])
+            elif size[-1] == "K":
+                size = convert_size(float(size[:-1]), "KB", False)
+            elif size[-1] == "M":
+                size = convert_size(float(size[:-1]), "MB", False)
+            elif size[-1] == "G":
+                size = convert_size(float(size[:-1]), "GB", False)
+            total_size += int(size)
+        # print("\nTotal size: ", total_size)")
+        total_size = get_size_formatted(total_size)
+        list.append(["Total size", total_size])
 
     def browse_directory():
         directory_path = filedialog.askdirectory()

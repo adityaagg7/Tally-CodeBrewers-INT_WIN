@@ -61,16 +61,14 @@ def update_table(table, files):
 
 
 def main(files):
-    # files = [("./test.py", "10KB"), ("file2.txt", "20KB"),
-    #          ("file3.txt", "15KB")]
 
-    # Create the main application window
+    print(files)
     window = tk.Tk()
     window.title("File Deletion Tool")
     window.geometry("700x500")
     # window.protocol("WM_DELETE_WINDOW", on_closing(window))
 
-    # Create the table to display the files
+
     table_frame = tk.Frame(window)
     table_frame.pack(pady=10)
     table = tk.ttk.Treeview(table_frame, columns=(
@@ -83,8 +81,7 @@ def main(files):
     table.column("FilePath", width=300)
     table.pack()
 
-    # Insert data into the table
-    # time.sleep(10)
+
     print("updating table")
     update_table(table, files)
 
@@ -93,8 +90,7 @@ def main(files):
         window,
         text="Enter the comma-separated indices or hyphen-separated range of the files to be deleted or leave empty "
              "to exit:")
-    # entry_indices = tk.Entry(window, width=50)
-    # button_delete_indices = tk.Button(window, text="Delete Selected Indices", command=delete_files(entry_indices,files))
+
     button_delete_selected = tk.Button(window, text="Delete Selected Files",
                                        command=lambda: delete_selected_files(table))
     button_delete_all = tk.Button(window, text="Delete All Files", command=lambda: delete_all_files(table, files))

@@ -2,7 +2,8 @@ import tkinter as tk
 
 from temp_files import main as temp
 from tkt_breakdown_updated import main as breakdown
-from tkt_large_files_updated import main as large
+# from tkt_large_files_updated import main as large
+from large_file_check import main as large
 from tkt_scan_updated import main as scan
 from tktduplicate_delete import main as dupldel
 from tktefficent_Delete_updated import main as effdel
