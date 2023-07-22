@@ -31,7 +31,7 @@ def main():
         if os.path.exists(log_dir) != True:
             print("creating log directory and file at ", log_file)
             os.mkdir(log_dir)
-            with open(os.path.join(log_dir,'cron_logs.log'), 'w') as fp:
+            with open(os.path.join(log_dir, 'cron_logs.log'), 'w') as fp:
                 pass
 
         xin = ""
@@ -150,15 +150,18 @@ def main():
             print("Scheduled jobs:\n")
             for job in cron:
                 print(job)
-            while 1:
-                a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
-                if a == 1 or a == 2:
+            flag = 1
+            while flag:
+                while 1:
+                    a = int(input("\nEnter 1 to redo and 2 to exit to Home\n"))
+                    if a == 1 or a == 2:
+                        break
+                print(f"\n{'*'*100}\n")
+                if a == 1:
+                    continue
+                else:
+                    flag = 0
                     break
-            print(f"\n{'*'*100}\n")
-            if a == 1:
-                continue
-            else:
-                break
 
         elif x == 4:
             break

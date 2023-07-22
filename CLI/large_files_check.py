@@ -52,8 +52,8 @@ def get_large_files():
         f"find {path} -type f -print0 | xargs -0 du -sh |  sort -hr  | head -n 10"
     )
     spinner_thread.stop()
-    print(a)
-    print("\n")
+    # print(a)
+    # print("\n")
     if a:
         a = a.split("\n")
         # table = PrettyTable()
@@ -63,8 +63,8 @@ def get_large_files():
         for line in a:
             size = line.split("\t")[0]
             nam = line.split("\t")[1]
-            print(line)
-            print(size)
+            # print(line)
+            # print(size)
             list.append([nam, size])
             if size[-1] == "B":
                 size = float(size[:-1])
