@@ -55,9 +55,9 @@ def update_table(table, files):
         table.insert("", "end", values=(i, size, path))
 
 
-# def on_closing(window):
-#     if messagebox.askokcancel("Quit", "Do you want to quit?"):
-#         window.destroy()
+def on_closing(window):
+    window.quit()
+    window.destroy()
 
 
 def main(files):
@@ -95,7 +95,7 @@ def main(files):
                                        command=lambda: delete_selected_files(table))
     button_delete_all = tk.Button(window, text="Delete All Files", command=lambda: delete_all_files(table, files))
     # button_refresh = tk.Button(window, text="Refresh", command=update_table)
-    # button_quit = tk.Button(window, text="Quit", command=on_closing)
+    button_quit = tk.Button(window, text="Quit", command=lambda:on_closing(window))
 
     # Pack the widgets with proper formatting
     label_info.pack()
@@ -104,7 +104,8 @@ def main(files):
     button_delete_selected.pack(pady=5)
     button_delete_all.pack(pady=5)
     # button_refresh.pack(pady=5)
-    # button_quit.pack(pady=5)
+    button_quit.pack(pady=5)
 
     # Run the tkinter main loop
     window.mainloop()
+    print("henlo")
