@@ -7,6 +7,7 @@ from large_file_check import main as large
 from tkt_scan_updated import main as scan
 from tktduplicate_delete import main as dupldel
 from tktefficent_Delete_updated import main as effdel
+from tree_view import main as filexp
 
 
 def beautify_buttons():
@@ -27,8 +28,11 @@ def beautify_buttons():
     button5 = tk.Button(root, text="Efficient Deletion", command=effdel, **button_style)
     button5.pack(pady=10)
 
-    button6 = tk.Button(root, text="Delete Temporary Files", command=temp, **button_style)
+    button6 = tk.Button(root, text="Delete Temporary Files (CLI)", command=temp, **button_style)
     button6.pack(pady=10)
+    
+    button7 = tk.Button(root, text="File Explorer", command=filexp, **button_style)
+    button7.pack(pady=10)
 
 
 root = tk.Tk()
