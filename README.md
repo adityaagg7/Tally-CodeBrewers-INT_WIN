@@ -59,7 +59,7 @@ File Explorer:
 
 ## Contributing
 
-Contributions are welcome! If you encounter any issues or have suggestions for improvement, please submit an issue or create a pull request.
+Contributions are welcome!!  If you encounter any issues or have suggestions for improvement, please submit an issue or create a pull request.
 
 
 
