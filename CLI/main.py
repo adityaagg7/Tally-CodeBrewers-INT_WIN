@@ -1,3 +1,5 @@
+import find_similar_files as text_similar
+import  dhash_similar as image_similar
 from prettytable import PrettyTable
 import filter_search as file_type_module
 import duplicate_delete_improved
@@ -25,7 +27,9 @@ def main():
             ["7.", "Check Space Used by Each File Type "], divider=True)
         hometable.add_row(["8.", "Temporary Files"], divider=True)
         hometable.add_row(["9.", "Schedule Jobs"], divider=True)
-        hometable.add_row(["10.", "Exit"], divider=True)
+        hometable.add_row(["10.", "Find Similar text Files"], divider=True)
+        hometable.add_row(["11.", "Find Similar Image Files"], divider=True)
+        hometable.add_row(["12.", "Exit"], divider=True)
         print(hometable)
         xin = input("\nEnter Your Choice: \n")
         x = 0
@@ -144,8 +148,18 @@ def main():
                 schedule_tasks.main()
                 print(f"\n{'*'*100}\n")
                 break
-
         elif x == 10:
+            while 1:
+                text_similar.main()
+                print(f"\n{'*'*100}\n")
+                break
+        elif x == 11:
+            while 1:
+                image_similar.main()
+                print(f"\n{'*'*100}\n")
+                break
+
+        elif x == 12:
             break
         else:
             print(

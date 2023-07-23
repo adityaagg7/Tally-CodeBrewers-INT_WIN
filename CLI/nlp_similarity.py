@@ -13,6 +13,7 @@ from difflib import SequenceMatcher
 from odf import text, teletype
 from odf.opendocument import load
 import io
+import pdfminer
 from pdfminer.high_level import extract_text
 import docx
 import os
