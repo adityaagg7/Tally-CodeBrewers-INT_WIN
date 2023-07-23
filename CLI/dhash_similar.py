@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 import imagehash
-
+import index_display_delete as delete_files
 
 def main():
     def dhash_image(image_path, hash_size=8):
@@ -44,9 +44,13 @@ def main():
         images_found = find_similar_images(input_directory)
         if images_found:
             print("Similar images found:")
+            g_files=[]
             for group in images_found:
                 print("Group:")
                 for image_path in group:
-                    print(image_path)
+                    s=os.path.getsize(image_path)
+                    g_files.append([image_path,s])
+                delete_files.main(g_files)
+                    
         else:
             print("No similar images found.")
