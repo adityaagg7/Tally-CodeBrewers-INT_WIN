@@ -6,13 +6,12 @@ import index_display_delete
 
 def main():
     image_set = ["jpg", "tif", "tiff", "eps", "jpeg", "png", "gif",
-                "bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"]
+                 "bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"]
     video_set = ["mp4", "avi", "mkv", "mov", "wmv"]
     document_set = ["pdf", "doc", "docx", "txt", "ppt", "pptx"]
     audio_set = ["mp3", "wav", "ogg", "flac", "aac"]
     compressed_set = ["zip", "rar", "tar", "gz", "7z"]
     code_set = ["py", "java", "cpp", "h", "html", "css", "js", "json", "md"]
-
 
     def get_size_formatted(size_bytes):
         size_kb = size_bytes / 1024
@@ -23,7 +22,6 @@ def main():
             return f"{size_mb:.2f}MB"
         size_gb = size_mb / 1024
         return f"{size_gb:.2f}GB"
-
 
     def convert_size(size, unit, convert_bytes_to_unit):
         units = {
@@ -37,7 +35,6 @@ def main():
             return size / units[unit]
         else:
             return size * units[unit]
-
 
     def find_files_by_extensions_and_size(directory, category_or_extensions, min_size, max_size, unit):
         matched_files = []
@@ -112,7 +109,6 @@ def main():
         entry_extensions.delete(0, tk.END)
         entry_extensions.insert(0, ",".join(extensions))
 
-
     def on_search_button():
         extensions = entry_extensions.get().strip()
         directory = entry_directory_path.get().strip()
@@ -129,20 +125,22 @@ def main():
                 matched_files[i][1] = get_size_formatted(matched_files[i][1])
             index_display_delete.main(matched_files)
         else:
-            messagebox.showinfo("No Files Found", "No files found matching the criteria.")
-
+            messagebox.showinfo(
+                "No Files Found", "No files found matching the criteria.")
 
     # Create the main tkinter window
     window = tk.Tk()
     window.title("Find Files by Extensions and Size")
-    window.geometry("900x300")
+    window.geometry("950x300")
 
     # Labels and Entry widgets for file extensions
-    label_extensions = tk.Label(window, text="Enter file extensions (comma-separated):")
+    label_extensions = tk.Label(
+        window, text="Enter file extensions (comma-separated):")
     entry_extensions = tk.Entry(window, width=40)
 
     # Labels and Entry widgets for other input fields
-    label_directory_path = tk.Label(window, text="Enter the directory path to search:")
+    label_directory_path = tk.Label(
+        window, text="Enter the directory path to search:")
     entry_directory_path = tk.Entry(window, width=40)
     label_min_size = tk.Label(window, text="Enter the minimum file size:")
     entry_min_size = tk.Entry(window, width=10)
@@ -157,19 +155,21 @@ def main():
 
     # Search button
     button_search = tk.Button(window, text="Search Files", command=on_search_button, font=("Helvetica", 12), bg="#3c8dbc",
-                            fg="white", padx=5)
+                              fg="white", padx=5)
     button_browse = tk.Button(window, text="Browse", command=browse_directory, font=("Helvetica", 12), bg="#f0f0f0",
-                            padx=5)
+                              padx=5)
 
     button_browse.grid(row=1, column=2, padx=5, pady=5, sticky="w")
 
-    categories = ["Images", "Videos", "Audio", "Code", "Compressed", "Documents"]
-    category_listbox = tk.Listbox(window, selectmode=tk.MULTIPLE, height=len(categories), width=20, exportselection=False)
+    categories = ["Images", "Videos", "Audio",
+                  "Code", "Compressed", "Documents"]
+    category_listbox = tk.Listbox(window, selectmode=tk.MULTIPLE, height=len(
+        categories), width=20, exportselection=False)
     for category in categories:
         category_listbox.insert(tk.END, category)
-    category_listbox.grid(row=0, column=2, columnspan=2, padx=5, pady=5, sticky="w")
+    category_listbox.grid(row=0, column=2, columnspan=2,
+                          padx=5, pady=5, sticky="w")
     category_listbox.bind('<<ListboxSelect>>', on_category_selected)
-
 
     # Grid layout for widgets
     label_extensions.grid(row=0, column=0, padx=5, pady=5, sticky="w")
@@ -180,7 +180,8 @@ def main():
     entry_min_size.grid(row=2, column=1, padx=5, pady=5, sticky="w")
     label_max_size.grid(row=2, column=2, padx=5, pady=5, sticky="w")
     entry_max_size.grid(row=2, column=3, padx=5, pady=5, sticky="w")
-    unit_dropdown.grid(row=2, column=4, columnspan=2, padx=5, pady=5, sticky="w")
+    unit_dropdown.grid(row=2, column=4, columnspan=4,
+                       padx=5, pady=5, sticky="w")
     button_search.grid(row=3, column=1, columnspan=2, padx=5, pady=10)
 
     # Run the tkinter main loop

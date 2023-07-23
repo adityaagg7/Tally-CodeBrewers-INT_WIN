@@ -6,6 +6,8 @@ from prettytable import PrettyTable
 import index_display_delete
 # entry_path=[]
 list_2 = []
+
+
 def get_size_formatted(size_bytes):
     size_kb = size_bytes / 1024
     if size_kb < 1024:
@@ -54,13 +56,13 @@ def get_large_files(entry_path):
         a = a.split("\n")
         # table = PrettyTable()
         # table.field_names = ["Size", "File Name"]
-        
+
         total_size = 0
         for line in a:
             size = line.split("\t")[0]
             nam = line.split("\t")[1]
-            print(line)
-            print(size)
+            # print(line)
+            # print(size)
             list_2.append([nam, size])
             if size[-1] == "B":
                 size = float(size[:-1])
@@ -80,26 +82,29 @@ def get_large_files(entry_path):
         index_display_delete.main(list_2)
 # def delete_items(list_2):
 
+
 def browse_directory(entry_path):
     directory_path = filedialog.askdirectory()
     if directory_path:
         entry_path.delete(0, tk.END)
         entry_path.insert(0, directory_path)
-        
+
+
 def main():
 
     window = tk.Tk()
     window.title("Large Files Finder")
     window.geometry("700x600")
 
-
-    label_path = tk.Label(window, text="Enter the directory path to search or browse:")
+    label_path = tk.Label(
+        window, text="Enter the directory path to search or browse:")
     entry_path = tk.Entry(window, width=40)
-    button_browse = tk.Button(window, text="Browse", command=lambda: browse_directory(entry_path))
-    button_find_large_files = tk.Button(window, text="Find Large Files", command=lambda: get_large_files(entry_path))
+    button_browse = tk.Button(window, text="Browse",
+                              command=lambda: browse_directory(entry_path))
+    button_find_large_files = tk.Button(
+        window, text="Find Large Files", command=lambda: get_large_files(entry_path))
     # text_box = tk.Text(window, wrap=tk.WORD, width=80, height=15)  # Create the text box
     # button_delete = tk.Button(window, text="Delete Files", command=lambda: delete_items(list_2))
-
 
     label_path.pack(pady=10)
     entry_path.pack(pady=5)
@@ -107,6 +112,5 @@ def main():
     button_find_large_files.pack(pady=10)
     # text_box.pack(pady=10)  # Pack the text box
     # button_delete.pack(pady=5)
-
 
     window.mainloop()

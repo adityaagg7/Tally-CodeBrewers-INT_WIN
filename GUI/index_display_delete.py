@@ -7,9 +7,10 @@ def delete_files_select(files):
     for file in files:
         if os.path.exists(file):
             os.remove(file)
-            print(f"Deleted {file}")
+            # print(f"Deleted {file}")
         else:
-            print(f"{file} not found!")
+            pass
+            # print(f"{file} not found!")
 
 
 def delete_files(indices, files):
@@ -20,19 +21,21 @@ def delete_files(indices, files):
             for i in range(index1, index2 + 1):
                 if os.path.exists(files[i][0]):
                     os.remove(files[i][0])
-                    print("Deleted ", files[i][0], "\n")
+                    # print("Deleted ", files[i][0], "\n")
                 else:
-                    print(f"File {files[i][0]} not found \n")
+                    pass
+                    # print(f"File {files[i][0]} not found \n")
         else:
             if os.path.exists(files[int(index)][0]):
                 os.remove(files[int(index)][0])
-                print("Deleted ", files[int(index)][0], "\n")
+                # print("Deleted ", files[int(index)][0], "\n")
             else:
-                print(f"File {files[int(index)][0]} not found \n")
+                pass
+                # print(f"File {files[int(index)][0]} not found \n")
 
 
 def delete_selected_files(table):
-    print(table.selection())
+    # print(table.selection())
     items = table.selection()
     path = []
     for item in items:
@@ -42,7 +45,7 @@ def delete_selected_files(table):
 
 
 def delete_all_files(table, files):
-    print("in delete all files")
+    # print("in delete all files")
     children = table.get_children("")
     for item in children:
         table.delete(item)
@@ -62,12 +65,11 @@ def on_closing(window):
 
 def main(files):
 
-    print(files)
+    # print(files)
     window = tk.Tk()
     window.title("File Deletion Tool")
-    window.geometry("700x500")
+    window.geometry("800x500")
     # window.protocol("WM_DELETE_WINDOW", on_closing(window))
-
 
     table_frame = tk.Frame(window)
     table_frame.pack(pady=10)
@@ -81,22 +83,20 @@ def main(files):
     table.column("FilePath", width=300)
     table.pack()
 
-
-    print("updating table")
+    # print("updating table")
     update_table(table, files)
-
 
     label_info = tk.Label(
         window,
-        text="Enter the comma-separated indices or hyphen-separated range of the files to be deleted or leave empty "
-             "to exit:")
+        text="Select the files you want to delete: ")
 
     button_delete_selected = tk.Button(window, text="Delete Selected Files",
                                        command=lambda: delete_selected_files(table))
-    button_delete_all = tk.Button(window, text="Delete All Files", command=lambda: delete_all_files(table, files))
+    button_delete_all = tk.Button(
+        window, text="Delete All Files", command=lambda: delete_all_files(table, files))
     # button_refresh = tk.Button(window, text="Refresh", command=update_table)
-    button_quit = tk.Button(window, text="Quit", command=lambda:on_closing(window))
-
+    button_quit = tk.Button(window, text="Quit",
+                            command=lambda: on_closing(window))
 
     label_info.pack()
     # entry_indices.pack()
@@ -108,4 +108,4 @@ def main(files):
 
     # Run the tkinter main loop
     window.mainloop()
-    print("henlo")
+    # print("henlo")

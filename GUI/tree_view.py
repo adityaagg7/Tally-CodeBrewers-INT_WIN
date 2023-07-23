@@ -1,5 +1,7 @@
 import os
+import subprocess
 import tkinter as tk
+from tkinter import *
 from tkinter import ttk
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -10,105 +12,129 @@ secondary_color = "#f2a154"
 bg_color = "#f5f5f5"
 text_color = "#333333"
 
+
 def main():
-    def get_directory_size(path):
-        total_size = 0
-        for dirpath, _, filenames in os.walk(path):
-            for f in filenames:
-                fp = os.path.join(dirpath, f)
-                try:
-                    total_size += os.path.getsize(fp)
-                except:
-                    pass
-        return total_size
-
-
-    def get_subdirectory_sizes(path):
-        subdirectories = [d for d in os.listdir(
-            path) if os.path.isdir(os.path.join(path, d))]
-        sizes = []
-        for subdir in subdirectories:
-            subdir_path = os.path.join(path, subdir)
-            sizes.append(get_directory_size(subdir_path))
-        return sizes
-
-
-    def get_path_of_item(self):
-        item = treeview.selection()[0]
-        parent_iid = treeview.parent(item)
-        node = []
-        while parent_iid != '':
-            node.insert(0, treeview.item(parent_iid)['text'])
-            parent_iid = treeview.parent(parent_iid)
-        i = treeview.item(item, "text")
-        # home_directory = os.path.expanduser("~")
-        path = os.path.join(home_directory, *node, i)
-        for widget in right_frame.winfo_children():
-            widget.destroy()
-        create_pie_chart(right_frame, path)
-
+    def get_subdir_size(path, max_depth=1):
+        cmd = f"du -ad {max_depth} {path}"
+        result = subprocess.run(
+            cmd, shell=True, capture_output=True, text=True)
+        list_of_directories = result.stdout.strip().split('\n')
+        final_list = []
+        for directory in list_of_directories:
+            split_list = directory.split("\t")
+            if split_list[-1].startswith(path):
+                split_list[-1] = split_list[-1][len(path):]
+            final_list.append(split_list)
+        final_list[-1][-1] = "Total"
+        return final_list
 
     def create_pie_chart(frame, path):
-        sizes = get_subdirectory_sizes(path)
-        subdirectories = [d for d in os.listdir(
-            path) if os.path.isdir(os.path.join(path, d))]
-
-        fig = Figure(figsize=(7,7))
+        list_of_size_and_dir = get_subdir_size(path)
+        sizes = []
+        subdirectories = []
+        total_size = 0
+        for list in list_of_size_and_dir:
+            if list[-1] != "Total":
+                total_size += int(list[0])
+                sizes.append(list[0])
+                subdirectories.append((list[-1]))
+        fig = Figure(figsize=(7, 7))
         # fig = Figure()
         ax = fig.add_subplot(111)
         # wedges, patches, texts = ax.pie(sizes, labels=None, autopct='%1.1f%%')
         ax.pie(sizes, labels=None)
-        total_size = sum(sizes)
-        labels = [f'{l}, {100 * s / total_size:.2f}%' for l, s in zip(subdirectories, sizes)]
-        ax.legend(loc='best', labels=labels,alignment = 'right',draggable = True)
+        labels = [
+            f'{l}, {100 * int(s) / total_size:.2f}%' for l, s in zip(subdirectories, sizes)]
+        ax.legend(loc='best', labels=labels, alignment='right', draggable=True)
         # ax.legend(bbox_to_anchor=(1, 0.5), loc='center left', labels=labels)
         canvas = FigureCanvasTkAgg(fig, master=frame)
         canvas.draw()
         canvas.get_tk_widget().pack(fill='both', expand=True)
-
-
 
     def populate_treeview(tree, parent, path):
         items = os.listdir(path)
         for item in items:
             item_path = os.path.join(path, item)
             is_directory = os.path.isdir(item_path)
-            item_id = tree.insert(parent, "end", text=item, open=False)
-
+            item_id = tree.insert(parent, "end", text=item, values=[
+                                  item_path], open=False)
             if is_directory:
-                populate_treeview(tree, item_id, item_path)
+                tree.insert(item_id, "end", text="dummy")
 
+    def on_node_expand(event):
+        item = event.widget.focus()
+        if not item:
+            return
+        tree = event.widget
+        list_of_children = tree.get_children(item)
+        selected_item = tree.item(item)
+        if selected_item["text"] != home_directory:
+            path = tree.item(item)["values"][0]
+        else:
+            path = home_directory
+        if list_of_children and tree.item(list_of_children[0], option="text") == "dummy":
+            tree.delete(list_of_children[0])
+            populate_treeview(tree, item, path)
+        if path != home_directory:
+            for widget in right_frame.winfo_children():
+                widget.destroy()
+            create_pie_chart(right_frame, path)
 
-    def create_tree(root):
-        treeview.insert("", "end", text=home_directory, open=True)
-        treeview.pack()
-        populate_treeview(treeview, "", home_directory)
+    def delete_item():
+        selected_item = treeview.focus()
+        if selected_item:
+            item = treeview.item(selected_item)
+            path = item["values"][0]
+            if os.path.exists(path):
+                if os.path.isdir(path):
+                    os.rmdir(path)
+                else:
+                    os.remove(path)
+                treeview.delete(selected_item)
+                path = path.split("/")[:-1]
+                path = "/".join(path)
+                if path != home_directory:
+                    for widget in right_frame.winfo_children():
+                        widget.destroy()
+                create_pie_chart(right_frame, path)
 
+    def open_file_explorer():
+        selected_item = treeview.focus()
+        if selected_item:
+            item = treeview.item(selected_item)
+            path = item["values"][0]
+            cmd = f"xdg-open {path}"
+            subprocess.run(cmd, shell=True, capture_output=True, text=True)
 
+    def do_popup(event):
+        try:
+            right_context_menu.tk_popup(event.x_root, event.y_root)
+        finally:
+            right_context_menu.grab_release()
 
-    root = tk.Tk()
-    root.title('Tkinter Horizontal Layouts')
-
-    # left_frame = ttk.Frame(root, padding=10)
-    # left_frame.grid(row=0, column=0, sticky='ns')
-    # root.rowconfigure(0, weight=100)
-
-    # root.columnconfigure(2, weight=50)
-    center_frame = ttk.Frame(root, padding=10)
-    center_frame.grid(row=0, column=1, sticky='ns')
-
-    right_frame = ttk.Frame(root, padding=10)
-    right_frame.grid(row=0, column=2,sticky="w")
-
-
-    treeview = ttk.Treeview(center_frame, columns=1)
-    treeview.column("1", width=150)
-    treeview.bind('<ButtonRelease-1>', get_path_of_item)
     home_directory = os.path.expanduser("~")
-
+    root = tk.Tk()
+    root.title("File Explorer")
+    left_frame = ttk.Frame(root, padding=10)
+    right_frame = ttk.Frame(root, padding=10)
+    left_frame.pack(side=LEFT)
+    right_frame.pack(side=RIGHT)
     create_pie_chart(right_frame, home_directory)
-    # create_vertical_buttons(left_frame, 5)
-    # create_vertical_buttons(right_frame, 10)
+    treeview = ttk.Treeview(left_frame)
+    treeview.pack(fill="both", expand=True)
+    root_node = treeview.insert("", "end", text=home_directory, open=False)
+    treeview.insert(root_node, "end", text="dummy")
+    treeview.bind("<<TreeviewOpen>>", on_node_expand)
 
-    create_tree(root)
+    right_context_menu = Menu(root, tearoff=0)
+    right_context_menu.add_command(
+        label="Open in File Explorer", command=open_file_explorer)
+    right_context_menu.add_command(label="Delete", command=delete_item)
+    right_context_menu.add_separator()
+
+    treeview.bind("<Button-3>", do_popup)
+    right_frame.bind("<Button-3>", do_popup)
+    left_frame.bind("<Button-3>", do_popup)
+
     root.mainloop()
+# main()
