@@ -3,7 +3,9 @@ import hashlib
 import filecmp
 import index_display_delete
 
+import readline
 
+readline.set_completer_delims(' \t\n=')
 def get_size_formatted(size_bytes):
     size_kb = size_bytes / 1024
     if size_kb < 1024:
@@ -89,6 +91,8 @@ def verify_duplicates(duplicate_files):
 
 def main():
 
+    readline.parse_and_bind("tab: complete")
+    
     directory_to_scan = input("Enter the directory to scan: ").strip()
 
     duplicate_files = find_duplicate_files(directory_to_scan)

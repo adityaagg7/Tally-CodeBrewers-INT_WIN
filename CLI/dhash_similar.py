@@ -2,7 +2,9 @@ from PIL import Image
 import os
 import imagehash
 import index_display_delete as delete_files
+import readline
 
+readline.set_completer_delims(' \t\n=')
 def main():
     def dhash_image(image_path, hash_size=8):
         image = Image.open(image_path)
@@ -34,6 +36,7 @@ def main():
                 similar_images.append(image_paths)
 
         return similar_images
+    readline.parse_and_bind("tab: complete")
 
     input_directory = input(
         "Enter the directory path to check for similar images: ")
