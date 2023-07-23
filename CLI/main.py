@@ -8,6 +8,7 @@ import temp_files
 import efficient_delete_find_pipe_rm as effdelete
 import schedule_tasks
 
+
 def main():
     while 1:
         hometable = PrettyTable()
@@ -143,7 +144,7 @@ def main():
                 schedule_tasks.main()
                 print(f"\n{'*'*100}\n")
                 break
-                
+
         elif x == 10:
             break
         else:

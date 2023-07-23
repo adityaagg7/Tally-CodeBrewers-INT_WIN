@@ -14,6 +14,7 @@ def get_size_formatted(size_bytes):
     size_gb = size_mb / 1024
     return f"{size_gb:.2f}GB"
 
+
 def get_file_hash(filename, block_size=65536):
     hasher = hashlib.sha256()
     with open(filename, "rb") as file:
@@ -41,7 +42,7 @@ def find_duplicate_files(directory):
 
 
 def delete_files(file_list):
-    for file_path in file_list[1:]:  
+    for file_path in file_list[1:]:
         try:
             os.remove(file_path)
             print(f"Deleted: {file_path}")
@@ -59,7 +60,6 @@ def verify_duplicates(duplicate_files):
             size = os.path.getsize(file_path)
             size_group.setdefault(size, []).append(file_path)
 
-
         for group_files in size_group.values():
             if len(group_files) > 1:
                 verified_group = []
@@ -72,13 +72,14 @@ def verify_duplicates(duplicate_files):
                     for other_file_path in group_files:
                         if other_file_path == file_path:
                             continue
-                        if filecmp.cmp(file_path, other_file_path):
+                        print(file_path, " ", other_file_path)
+                        if filecmp.cmp(file_path, other_file_path, shallow=False):
+                            print("hello")
                             verified_group.append(other_file_path)
                         else:
-
+                            print("bye")
                             verified_group.clear()
                             break
-
 
                 if len(verified_group) > 1:
                     verified_duplicates.append(verified_group)
@@ -99,12 +100,12 @@ def main():
     else:
         print(f"{len(verified_duplicates)} Groups of Duplicate files found!")
         for i, file_list in enumerate(verified_duplicates, 1):
-            list_to_send=[]
+            list_to_send = []
             for file_path in file_list:
-                list_to_send.append([file_path,get_size_formatted(os.path.getsize(file_path))])
+                list_to_send.append(
+                    [file_path, get_size_formatted(os.path.getsize(file_path))])
             index_display_delete.main(list_to_send)
 
-        
 
 # if __name__ == "__main__":
 #     main()
