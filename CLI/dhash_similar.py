@@ -1,10 +1,13 @@
 from PIL import Image
 import os
 import imagehash
+
+
 def main():
     def dhash_image(image_path, hash_size=8):
         image = Image.open(image_path)
-        resized_image = image.resize((hash_size + 1, hash_size), Image.ANTIALIAS)
+        resized_image = image.resize(
+            (hash_size + 1, hash_size), Image.ANTIALIAS)
         hash_value = imagehash.dhash(resized_image)
         return hash_value
 
@@ -14,6 +17,8 @@ def main():
 
         for root, _, files in os.walk(input_directory):
             for file in files:
+                if not (file.endswith(".jpg") or file.endswith(".png") or file.endswith(".jpeg")):
+                    continue
                 file_path = os.path.join(root, file)
                 try:
                     image_hash = dhash_image(file_path)
@@ -30,17 +35,16 @@ def main():
 
         return similar_images
 
-
-    input_directory = input("Enter the directory path to check for similar images: ")
+    input_directory = input(
+        "Enter the directory path to check for similar images: ")
 
     if not os.path.exists(input_directory):
         print("Invalid directory path.")
     else:
-        similar_images = find_similar_images(input_directory)
-
-        if similar_images:
+        images_found = find_similar_images(input_directory)
+        if images_found:
             print("Similar images found:")
-            for group in similar_images:
+            for group in images_found:
                 print("Group:")
                 for image_path in group:
                     print(image_path)

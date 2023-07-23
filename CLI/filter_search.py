@@ -38,13 +38,13 @@ def convert_size(size, unit, convert_bytes_to_unit):
 def find_files_by_extensions_and_size(directory, category_or_extensions, min_size, max_size, unit):
     matched_files = []
     extensions = []
-    print(category_or_extensions, "STARTING")
+    # print(category_or_extensions, "STARTING")
     category_or_extensions = category_or_extensions.split(",")
-    print(category_or_extensions)
+    # print(category_or_extensions)
     for category in category_or_extensions:
         # print(category)
         # print(extensions)
-        category = category.strip()
+        category = category.strip().lower()
         if category == "images":
             extensions.extend(image_set)
         elif category == "videos":
@@ -59,9 +59,9 @@ def find_files_by_extensions_and_size(directory, category_or_extensions, min_siz
             extensions.extend(code_set)
         else:
             extensions.append(category)
-    print(extensions)
+    # print(extensions)
     extensions = set(extensions)
-    print(extensions)
+    # print(extensions)
     if unit != "B":
         min_size = convert_size(min_size, unit, False)
         max_size = convert_size(max_size, unit, False)

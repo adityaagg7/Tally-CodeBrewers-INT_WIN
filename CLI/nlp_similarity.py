@@ -39,7 +39,7 @@ def extract_text_from_odt(odt_file_path):
 
 
 def extract_text_from_txt(txt_file_path):
-    with open(txt_file_path, 'r') as txt_file:
+    with open(txt_file_path, 'rb') as txt_file:
         text = txt_file.read()
 
     return text
@@ -64,9 +64,15 @@ def text_lowercase(text):
     return text.lower()
 
 
-def remove_punctuation(text):
-    translator = str.maketrans('', '', string.punctuation)
-    return text.translate(translator)
+# def remove_punctuation(text):
+#     translator = str.maketrans('', '', string.punctuation)
+#     print(text)
+#     return text.translate(translator)
+
+def remove_punctuation(input_string):
+    punctuation_pattern = r'[^\w\s]'
+    cleaned_string = re.sub(punctuation_pattern, '', str(input_string))
+    return cleaned_string
 
 
 def remove_whitespace(text):
