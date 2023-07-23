@@ -1,6 +1,9 @@
 import os
 import subprocess
 from tqdm import tqdm
+import readline
+
+readline.set_completer_delims(' \t\n=')
 
 image_set={"jpg","tif","tiff","eps", "jpeg", "png", "gif", "bmp", "raw", "cr2","nef","orf","sr2","webp","svg"}
 video_set={"mp4", "avi", "mkv", "mov", "wmv"}
@@ -58,6 +61,7 @@ def get_total_size_of_directory(directory):
 
 def main():
     map={"image_sizes":0,"video_sizes":0,"document_sizes":0,"audio_sizes":0,"compressed_sizes":0,"code_sizes":0}
+    readline.parse_and_bind("tab: complete")
 
     current_directory = input("Enter the directory you want to search in\n(leave blank for home directory)\n(enter . for searching current directory): ")
     if current_directory=="":

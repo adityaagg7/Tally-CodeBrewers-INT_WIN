@@ -1,5 +1,9 @@
 import os
 import index_display_delete
+import sys
+import readline
+
+readline.set_completer_delims(' \t\n=')
 
 image_set = ["jpg", "tif", "tiff", "eps", "jpeg", "png", "gif",
              "bmp", "raw", "cr2", "nef", "orf", "sr2", "webp", "svg"]
@@ -82,6 +86,7 @@ def main():
     print("Find Files by Extensions and Size")
     extensions = input(
         "Enter the file extensions separated by commas (e.g. txt, jpg, etc.)\nor type out the category (e.g. images, videos, documents, audios, or compressed): ")
+    readline.parse_and_bind("tab: complete")
     directory = input("Enter the directory path to search: ")
     min_size = float(input("Enter the minimum file size: "))
     max_size = float(input("Enter the maximum file size: "))

@@ -3,7 +3,9 @@ import os
 from Spinner_Loder import SpinnerThread
 from prettytable import PrettyTable
 import index_display_delete
+import readline
 
+readline.set_completer_delims(' \t\n=')
 
 def get_size_formatted(size_bytes):
     size_kb = size_bytes / 1024
@@ -31,6 +33,9 @@ def convert_size(size, unit, convert_bytes_to_unit):
 
 
 def get_large_files():
+    readline.parse_and_bind("tab: complete")
+
+    
     path = input("Enter Path of Directory to Search or press ENTER for Home\n")
     spinner_thread = SpinnerThread()
     spinner_thread.start()

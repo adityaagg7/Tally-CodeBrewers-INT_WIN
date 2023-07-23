@@ -1,6 +1,8 @@
 from nlp_similarity import main as nlp_similarity_main
 import os
+import readline
 
+readline.set_completer_delims(' \t\n=')
 
 doc_set = {".docx", ".doc", ".odt", ".pdf", ".txt"}
 
@@ -56,6 +58,7 @@ def solve(path):
 
 def main():
     while 1:
+        readline.parse_and_bind("tab: complete")
         path = input("Enter Path of directory to search for:\n")
         print("\n")
         if (os.path.exists(path)):
