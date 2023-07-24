@@ -109,6 +109,10 @@ def main():
         entry_extensions.delete(0, tk.END)
         entry_extensions.insert(0, ",".join(extensions))
 
+    def on_unit_selected(event):
+        selected_unit = unit_var.get()
+        unit_label.config(text=f"Unit: {selected_unit}")
+
     def on_search_button():
         extensions = entry_extensions.get().strip()
         directory = entry_directory_path.get().strip()
@@ -150,8 +154,13 @@ def main():
     # Dropdown menu for file size unit
     units = ["B", "KB", "MB", "GB", "TB"]
     unit_var = tk.StringVar()
-    unit_dropdown = tk.OptionMenu(window, unit_var, *units)
-    unit_var.set("B")
+    unit_var.set("B")  # Default unit
+    unit_label = tk.Label(window, text="Unit: B", font=("Helvetica", 12))
+    unit_label.grid(row=2, column=4, columnspan=2, padx=5, pady=5, sticky="w")
+    unit_dropdown = tk.OptionMenu(
+        window, unit_var, *units, command=on_unit_selected)
+    unit_dropdown.grid(row=2, column=6, columnspan=2,
+                       padx=5, pady=5, sticky="w")
 
     # Search button
     button_search = tk.Button(window, text="Search Files", command=on_search_button, font=("Helvetica", 12), bg="#3c8dbc",
@@ -180,8 +189,7 @@ def main():
     entry_min_size.grid(row=2, column=1, padx=5, pady=5, sticky="w")
     label_max_size.grid(row=2, column=2, padx=5, pady=5, sticky="w")
     entry_max_size.grid(row=2, column=3, padx=5, pady=5, sticky="w")
-    unit_dropdown.grid(row=2, column=4, columnspan=4,
-                       padx=5, pady=5, sticky="w")
+    # unit_dropdown.grid(row=2, column=4, columnspan=2, padx=5, pady=5, sticky="w")
     button_search.grid(row=3, column=1, columnspan=2, padx=5, pady=10)
 
     # Run the tkinter main loop
