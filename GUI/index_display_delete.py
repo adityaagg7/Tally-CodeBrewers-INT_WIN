@@ -80,7 +80,7 @@ def main(files):
     table.heading("FilePath", text="FilePath")
     table.column("Index", width=60)
     table.column("Size", width=100)
-    table.column("FilePath", width=300)
+    table.column("FilePath", width=640)
     table.pack()
 
     # print("updating table")

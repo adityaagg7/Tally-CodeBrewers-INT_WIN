@@ -27,7 +27,7 @@ def main():
             ["7.", "Check Space Used by Each File Type "], divider=True)
         hometable.add_row(["8.", "Temporary Files"], divider=True)
         hometable.add_row(["9.", "Schedule Jobs"], divider=True)
-        hometable.add_row(["10.", "Find Similar text Files"], divider=True)
+        hometable.add_row(["10.", "Find Similar Document Files"], divider=True)
         hometable.add_row(["11.", "Find Similar Image Files"], divider=True)
         hometable.add_row(["12.", "Exit"], divider=True)
         print(hometable)
